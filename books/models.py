@@ -8,9 +8,11 @@ from django.dispatch import receiver
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    bio = models.TextField(max_length=500, blank=True)
-    location = models.CharField(max_length=30, blank=True)
+    roll_no = models.CharField(max_length=10)
     birth_date = models.DateField(null=True, blank=True)
+    branch = models.CharField(choices=BRANCH_CHOICES, max_length=6)
+    year = models.CharField(choices=YEAR_CHOICES, max_length=3)
+    phone = models.CharField(max_length=10, default='')
 
 
 @receiver(post_save, sender=User)
