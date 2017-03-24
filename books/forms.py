@@ -14,28 +14,33 @@ class SignUpForm(UserCreationForm):
         fields = ('username', 'first_name', 'last_name', 'password1', 'password2',)
 
 
-# class DateInput(forms.DateInput):
-#     input_type = 'date'
+class DateInput(forms.DateInput):
+    input_type = 'date'
 
 
-# BRANCH_CHOICES = (
-#     ('B.Tech', 'B.Tech'),
-#     ('MCA', 'MCA'),
-# )
+BRANCH_CHOICES = (
+    ('B.Tech', 'B.Tech'),
+    ('MCA', 'MCA'),
+)
 
-# YEAR_CHOICES = (
-#     ('1st', '1st'),
-#     ('2nd', '2nd'),
-#     ('3rd', '3rd'),
-#     ('4th', '4th'),
-#     ('5th', '5th'),
-# )
-
+YEAR_CHOICES = (
+    ('1st', '1st'),
+    ('2nd', '2nd'),
+    ('3rd', '3rd'),
+    ('4th', '4th'),
+    ('5th', '5th'),
+)
 
 
 class ProfileForm(forms.ModelForm):
     birth_date = forms.DateField(help_text='Required. Format: YYYY-MM-DD')
+    branch = forms.ChoiceField(choices=BRANCH_CHOICES)
+    year = forms.ChoiceField(choices=YEAR_CHOICES)
 
     class Meta:
         model = Profile
-        fields = ( 'birth_date', 'bio', 'location')
+        fields = ('regd_no', 'birth_date', 'branch', 'year', 'phone')
+
+        widgets = {
+            'birth_date': DateInput(),
+        }

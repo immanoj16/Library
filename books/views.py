@@ -16,9 +16,11 @@ def signup(request):
         profile_form = ProfileForm(request.POST)
         if user_form.is_valid() and profile_form.is_valid():
             user = user_form.save()
-            user.profile.bio = profile_form.cleaned_data.get('bio')
-            user.profile.location = profile_form.cleaned_data.get('location')
+            user.profile.regd_no = profile_form.cleaned_data.get('regd_no')
             user.profile.birth_date = profile_form.cleaned_data.get('birth_date')
+            user.profile.branch = profile_form.cleaned_data.get('branch')
+            user.profile.year = profile_form.cleaned_data.get('year')
+            user.profile.phone = profile_form.cleaned_data.get('phone')
             user.profile.save()
             user.refresh_from_db()  # load the profile instance created by the signal
             user.save()
