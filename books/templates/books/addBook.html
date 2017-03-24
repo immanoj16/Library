@@ -1,0 +1,29 @@
+{% extends 'books/base.html' %}
+
+{% block title %}Add book to the library{% endblock %}
+
+{% if error_message %}
+    <div class="alert alert-danger">
+        {{ error_message }}
+    </div>
+{% endif %}
+
+{% block content %}
+    <h2>Sign up</h2>
+    <form method="post" action="{% url 'addbook' %}">
+        {% csrf_token %}
+        {% for field in book_form %}
+            <p>
+                {{ field.label_tag }}<br>
+                {{ field }}
+                {% if field.help_text %}
+                    <small style="color: grey">{{ field.help_text }}</small>
+                {% endif %}
+                {% for error in field.errors %}
+                    <p style="color: red">{{ error }}</p>
+                {% endfor %}
+            </p>
+        {% endfor %}
+        <button type="submit">Sign up</button>
+  </form>
+{% endblock %}

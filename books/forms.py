@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
-from .models import Profile
+from .models import Profile, Book
 
 
 class SignUpForm(UserCreationForm):
@@ -44,3 +44,21 @@ class ProfileForm(forms.ModelForm):
         widgets = {
             'birth_date': DateInput(),
         }
+
+
+BOOK_CHOICES = (
+    ('Programming', 'Programming'),
+    ('Computer', 'Computer'),
+    ('Math', 'Math'),
+    ('Economics', 'Economics'),
+    ('Accounting', 'Accounting'),
+    ('Others', 'Others')
+)
+
+
+class BookForm(forms.ModelForm):
+    book_type = forms.ChoiceField(choices=BOOK_CHOICES)
+
+    class Meta:
+        model = Book
+        fields = ('isbn_no', 'book_name', 'author_name', 'book_type', 'edition', 'no_of_books')

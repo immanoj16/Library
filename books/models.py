@@ -34,3 +34,25 @@ def update_user_profile(sender, instance, created, **kwargs):
     if created:
         Profile.objects.create(user=instance)
     instance.profile.save()
+
+
+BOOK_CHOICES = (
+    ('Programming', 'Programming'),
+    ('Computer', 'Computer'),
+    ('Math', 'Math'),
+    ('Economics', 'Economics'),
+    ('Accounting', 'Accounting'),
+    ('Others', 'Others')
+)
+
+
+class Book(models.Model):
+    isbn_no = models.CharField(max_length=100, null=False)
+    book_name = models.CharField(max_length=100)
+    author_name = models.CharField(max_length=100)
+    book_type = models.CharField(max_length=15, choices=BOOK_CHOICES)
+    edition = models.IntegerField()
+    no_of_books = models.IntegerField()
+
+    def __unicode__(self):
+        return self.book_name

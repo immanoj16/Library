@@ -1,13 +1,17 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, authenticate
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, render_to_response
+from django.template import RequestContext
 
-from .forms import SignUpForm, ProfileForm
+from .forms import SignUpForm, ProfileForm, BookForm
+from .models import Book
 
 
 @login_required
 def home(request):
-    return render(request, 'home.html')
+    username = request.user.username
+    book_list = Book.objects.order_by('book_name')[:50]
+    return render(request, 'home.html', {'book_list': book_list, 'username': username})
 
 
 def signup(request):
@@ -32,3 +36,26 @@ def signup(request):
         user_form = SignUpForm()
         profile_form = ProfileForm()
     return render(request, 'signup.html', {'user_form': user_form, 'profile_form': profile_form})
+
+
+def addbook(request):
+    if not request.user.is_authenticated():
+        return render(request, 'books/login.html')
+
+    username = request.user.username
+    if request.method == 'POST':
+        book_form = BookForm(request.POST)
+
+        if book_form.is_valid():
+            book_form.save()
+
+            book_list = Book.objects.order_by('book_name')[:50]
+            context = {
+                'success_message': "New book is added",
+                'book_list': book_list,
+                'username': username,
+            }
+            return render(request, 'home.html', context)
+        else:
+            book_form = BookForm()
+            return render_to_response('books/addBook.html', {'book_form': book_form, 'error_message': "Data is invalid"}, context_instance=RequestContext(request))
