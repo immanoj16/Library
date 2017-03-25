@@ -10,7 +10,7 @@
 
 {% block content %}
     <h2>Add Book to the Database</h2>
-    <form class="form-horizontal" method="post" action="{% url 'addbook' %}">
+    <form class="form-horizontal" method="post">
         {% csrf_token %}
         {% for field in book_form %}
             <div class="form-group">
