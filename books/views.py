@@ -1,7 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, authenticate
-from django.shortcuts import render, redirect, render_to_response
-from django.template import RequestContext
+from django.shortcuts import render, redirect
 
 from .forms import SignUpForm, ProfileForm, BookForm
 from .models import Book
@@ -56,5 +55,8 @@ def addbook(request):
             return render(request, 'books/home.html', context)
 
     else:
-        book_form = BookForm()
-        return render(request, 'books/addbook.html', {'book_form': book_form, 'error_message': "Data is invalid"})
+        context = {
+            'book_form': BookForm(),
+            'error_message': "Data is invalid",
+        }
+        return render(request, 'books/addbook.html', context)
