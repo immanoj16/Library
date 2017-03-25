@@ -10,4 +10,6 @@ urlpatterns = [
     url(r'^logout/$', auth_views.logout, {'next_page': 'login'}, name='logout'),
     url(r'^signup/$', core_views.signup, name='signup'),
     url(r'^addbook/', core_views.addbook, name='addbook'),
+    url(r'^search/$', core_views.search, name='search'),
+    url(r'^profile/', core_views.profile, name='profile'),
 ]

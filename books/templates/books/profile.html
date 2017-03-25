@@ -1,0 +1,179 @@
+{% extends 'books/base.html' %}
+
+{% block title %}Profile page{% endblock %}
+{% block profile_active %}active{% endblock %}
+
+{% block content %}
+    <h2 class="page-header">General Account Settings</h2>
+    {% if success_message %}
+        <div class="alert alert-success">
+            <span class="glyphicon glyphicon-ok-circle"></span> {{ success_message }}
+        </div>
+    {% endif %}
+    {% if error_message %}
+        <div class="alert alert-danger">
+            {{ error_message }}
+        </div>
+    {% endif %}
+    <div class="alert alert-info alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <span class="glyphicon glyphicon-star"></span> click <strong>Edit</strong> to change anything.
+    </div>
+    <table class="table table-hover">
+        <tr>
+            <td>Username</td>
+            <td>{{ user.username }}</td>
+            <td><span class="glyphicon glyphicon-pencil"></span><span class="profile" data-toggle="modal" data-target="#name">Edit</span></td>
+        </tr>
+        <tr>
+            <td>Email</td>
+            <td>{{ user.email }}</td>
+            <td><span class="glyphicon glyphicon-pencil"></span><span class="profile" data-toggle="modal" data-target="#email">Edit</span></td>
+        </tr>
+        <tr>
+            <td>Password</td>
+            <td></td>
+            <td><span class="glyphicon glyphicon-pencil"></span><span class="profile" data-toggle="modal" data-target="#password">Edit</span></td>
+        </tr>
+        <tr>
+            <td>Full Name</td>
+            <td>{{ user.get_full_name }}</td>
+            <td><span class="glyphicon glyphicon-pencil"></span><span class="profile" data-toggle="modal" data-target="#fullname">Edit</span></td>
+        </tr>
+        <tr>
+            <td>Regd. No. </td>
+            <td>{{ user.profile.regd_no }}</td>
+            <td><span class="glyphicon glyphicon-pencil"></span><span class="profile" data-toggle="modal" data-target="#regd_no">Edit</span></td>
+        </tr>
+        <tr>
+            <td>Branch</td>
+            <td>{{ user.profile.branch }}</td>
+            <td><span class="glyphicon glyphicon-pencil"></span><span class="profile" data-toggle="modal" data-target="#branch">Edit</span></td>
+        </tr>
+        <tr>
+            <td>Year</td>
+            <td>{{ user.profile.year }}</td>
+            <td><span class="glyphicon glyphicon-pencil"></span><span class="profile" data-toggle="modal" data-target="#year">Edit</span></td>
+        </tr>
+        <tr>
+            <td>Date of Birth</td>
+            <td>{{ user.profile.birth_date }}</td>
+            <td><span class="glyphicon glyphicon-pencil"></span><span class="profile" data-toggle="modal" data-target="#birth_date">Edit</span></td>
+        </tr>
+        <tr>
+            <td>Phone</td>
+            <td>{{ user.profile.phone }}</td>
+            <td><span class="glyphicon glyphicon-pencil"></span><span class="profile" data-toggle="modal" data-target="#phone">Edit</span></td>
+        </tr>
+    </table>
+
+    <!-- Modal for Name -->
+    <div class="modal fade" id="name" tabindex="-1" role="dialog" aria-labelledby="myModalLabelName" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabelName"> Change Username </h4>
+                </div>
+                <div class="modal-body">
+                    {% if user.username == 'admin' %}
+                        <div class="alert alert-warning">
+                            You can't change the username of admin.
+                        </div>
+                    {% else %}
+                        <form class="form-horizontal" method="post" action="#">{% csrf_token %}
+                            <div class="form-group">
+                                <label for="username" class="col-sm-3 control-label">Username: </label>
+                                <div class="col-sm-5">
+                                    <input type="text" class="form-control" id="username" name="username" placeholder="New Username">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-sm-offset-3 col-sm-5">
+                                    <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-save"></span> Change</button>
+                                </div>
+                            </div>
+                        </form>
+                    {% endif %}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Email -->
+    <div class="modal fade" id="email" tabindex="-1" role="dialog" aria-labelledby="myModalLabelEmail" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabelEmail"> Change Email </h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" method="post" action="#">{% csrf_token %}
+                        <div class="form-group">
+                            <label for="email" class="col-sm-3 control-label">Email: </label>
+                            <div class="col-sm-5">
+                                <input type="email" class="form-control" id="email" name="email" placeholder="New Email">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-offset-3 col-sm-5">
+                                <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-save"></span> Change</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Password -->
+    <div class="modal fade" id="password" tabindex="-1" role="dialog" aria-labelledby="myModalLabelPass" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabelPass"> Change Password </h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" method="post" action="#">{% csrf_token %}
+                        <div class="form-group">
+                            <label for="opassword" class="col-sm-4 control-label">Old Password: </label>
+                            <div class="col-sm-5">
+                                <input type="password" class="form-control" id="opassword" name="opassword" placeholder="Old Password">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="npassword" class="col-sm-4 control-label">New Password: </label>
+                            <div class="col-sm-5">
+                                <input type="password" class="form-control" id="npassword" name="npassword" placeholder="New Password">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="cpassword" class="col-sm-4 control-label">Confirm Password: </label>
+                            <div class="col-sm-5">
+                                <input type="password" class="form-control" id="cpassword" name="cpassword" placeholder="Confirm Password">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-offset-4 col-sm-5">
+                                <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-save"></span> Change</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

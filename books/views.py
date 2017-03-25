@@ -1,6 +1,8 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, authenticate
 from django.shortcuts import render, redirect
+from django.contrib.auth.models import User
+from django.db.models import Q
 
 from .forms import SignUpForm, ProfileForm, BookForm
 from .models import Book
@@ -60,3 +62,32 @@ def addbook(request):
             'error_message': "Data is invalid",
         }
         return render(request, 'books/addbook.html', context)
+
+
+@login_required
+def search(request):
+    username = request.user.username
+    query = request.GET['q']
+    if query:
+        book_list = Book.objects.filter(Q(book_name__icontains=query)).distinct()
+        user_list = User.objects.filter(Q(username__startswith=query)).distinct()
+        context = {
+            'book_list': book_list,
+            'user_list': user_list,
+            'username': username,
+        }
+        return render(request, 'books/search.html', context)
+    else:
+        book_list = Book.objects.order_by('book_name')[:50]
+        context = {
+            'error_message': "Please Give the book name or username",
+            'book_list': book_list,
+        }
+        return render(request, 'books/home.html', context)
+
+
+@login_required
+def profile(request):
+    username = request.user.username
+    user = User.objects.get(username=username)
+    return render(request, 'books/profile.html', )

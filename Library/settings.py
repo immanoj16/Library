@@ -124,7 +124,7 @@ STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static"),
-    '/Library/src/static/',
+    '/static/',
 )
 
 # STATIC_ROOT = 'C:/Users/KANHU/Desktop/Library/src/static/'
