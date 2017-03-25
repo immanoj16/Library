@@ -1,14 +1,13 @@
-{% extends 'base.html' %}
+{% extends 'books/base.html' %}
 {% block title %}home page{% endblock %}
 
 {% block content %}
-    <h2>Welcome, {{ user.get_full_name }} <small>{{ user.username }}</small>!</h2>
-    <p>Your birth date: {{ user.profile.birth_date }}</p>
+    <h1><p class="text-uppercase text-center">Library Management System</p></h1>
+    <h2>Welcome, {{ user.get_full_name }} <small>({{ user.username }})</small> !</h2>
+    <!--<p>Your birth date: {{ user.profile.birth_date }}</p>
     <p>Your phone no: {{ user.profile.phone }}</p>
     <p>Registration No: {{ user.profile.regd_no }}</p>
-    <p>You are in {{ user.profile.year }} of {{ user.profile.branch }}</p>
-
-    <h1><p class="text-uppercase text-center">Library Management System</p></h1>
+    <p>You are in {{ user.profile.year }} of {{ user.profile.branch }}</p>-->
     <h3>Book List</h3>
 
     {% if success_message %}

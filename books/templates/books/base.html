@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+    {% load staticfiles %}
+    <link rel="shortcut icon" type="image/png" href="{%  static 'books/img/title.png' %}">
+    <link rel="stylesheet" href="{% static 'books/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'books/css/style.css' %}">
+    <link href='https://fonts.googleapis.com/css?family=Satisfy' rel='stylesheet' type='text/css'>
+    <script type="text/javascript" src="{% static 'books/js/jquery-3.1.1.min.js' %}"></script>
+    <script src="{% static 'books/js/bootstrap.min.js' %}"></script>
+</head>
+<body>
+<div class="container">
+    <nav class="navbar navbar-inverse">
+
+            <!-- Header -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#topNavBar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="{% url 'home' %}">Library</a>
+            </div>
+
+            <!-- Items -->
+            <div class="collapse navbar-collapse" id="topNavBar">
+                <ul class="nav navbar-nav">
+                    <li class="{% block books_active %}{% endblock %}"><a href="{% url 'home' %}">Books</a></li>
+                    <li class="{% block profile_active %}{% endblock %}"><a href="#">Profile</a></li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                    {% block search %}
+                    {% endblock %}
+                    {% if username == 'admin' %}
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="{% url 'addbook' %}">
+                                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp; Add Books
+                                    </a>
+                                </li>
+                                <li class="divider"></li>
+                                <li>
+                                    <a href="#">
+                                        <span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp; Add Users
+                                    </a>
+                                </li>
+
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span> Remove <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="#">
+                                        <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>&nbsp; Remove Books
+                                    </a>
+                                </li>
+                                <li class="divider"></li>
+                                <li>
+                                    <a href="#">
+                                        <span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp; Remove Users
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    {% endif %}
+                    <li>
+                        <a href="{% url 'logout' %}">
+                            <span class="glyphicon glyphicon-off" aria-hidden="true"></span>&nbsp; Logout
+                        </a>
+                    </li>
+                </ul>
+            </div>
+    </nav>
+    </div>
+    <div class="container">
+        {% block content %}
+        {% endblock %}
+    </div>
+    <script src="{% static 'books/js/main.js' %}"></script>
+</body>
+</html>

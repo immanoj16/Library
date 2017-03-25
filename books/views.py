@@ -11,7 +11,7 @@ from .models import Book
 def home(request):
     username = request.user.username
     book_list = Book.objects.order_by('book_name')[:50]
-    return render(request, 'home.html', {'book_list': book_list, 'username': username})
+    return render(request, 'books/home.html', {'book_list': book_list, 'username': username})
 
 
 def signup(request):
@@ -35,13 +35,11 @@ def signup(request):
     else:
         user_form = SignUpForm()
         profile_form = ProfileForm()
-    return render(request, 'signup.html', {'user_form': user_form, 'profile_form': profile_form})
+    return render(request, 'books/signup.html', {'user_form': user_form, 'profile_form': profile_form})
 
 
+@login_required
 def addbook(request):
-    if not request.user.is_authenticated():
-        return render(request, 'books/login.html')
-
     username = request.user.username
     if request.method == 'POST':
         book_form = BookForm(request.POST)
@@ -55,7 +53,8 @@ def addbook(request):
                 'book_list': book_list,
                 'username': username,
             }
-            return render(request, 'home.html', context)
-        else:
-            book_form = BookForm()
-            return render_to_response('books/addBook.html', {'book_form': book_form, 'error_message': "Data is invalid"}, context_instance=RequestContext(request))
+            return render(request, 'books/home.html', context)
+
+    else:
+        book_form = BookForm()
+        return render(request, 'books/addbook.html', {'book_form': book_form, 'error_message': "Data is invalid"})
