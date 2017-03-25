@@ -13,6 +13,14 @@ class SignUpForm(UserCreationForm):
         model = User
         fields = ('username', 'first_name', 'last_name', 'password1', 'password2',)
 
+    def __init__(self, *args, **kwargs):
+        super(SignUpForm, self).__init__(*args, **kwargs)
+        for field in iter(self.fields):
+            self.fields[field].widget.attrs.update({
+                'placeholder': field,
+                'class': 'form-control'
+            })
+
 
 class DateInput(forms.DateInput):
     input_type = 'date'
@@ -33,7 +41,7 @@ YEAR_CHOICES = (
 
 
 class ProfileForm(forms.ModelForm):
-    birth_date = forms.DateField(help_text='Required. Format: YYYY-MM-DD')
+    birth_date = forms.DateField(widget=DateInput())
     branch = forms.ChoiceField(choices=BRANCH_CHOICES)
     year = forms.ChoiceField(choices=YEAR_CHOICES)
 
@@ -41,9 +49,13 @@ class ProfileForm(forms.ModelForm):
         model = Profile
         fields = ('regd_no', 'birth_date', 'branch', 'year', 'phone')
 
-        widgets = {
-            'birth_date': DateInput(),
-        }
+    def __init__(self, *args, **kwargs):
+        super(ProfileForm, self).__init__(*args, **kwargs)
+        for field in iter(self.fields):
+            self.fields[field].widget.attrs.update({
+                'placeholder': field,
+                'class': 'form-control'
+            })
 
 
 BOOK_CHOICES = (
@@ -62,3 +74,11 @@ class BookForm(forms.ModelForm):
     class Meta:
         model = Book
         fields = ('isbn_no', 'book_name', 'author_name', 'book_type', 'edition', 'no_of_books')
+
+    def __init__(self, *args, **kwargs):
+        super(BookForm, self).__init__(*args, **kwargs)
+        for field in iter(self.fields):
+            self.fields[field].widget.attrs.update({
+                'placeholder': field,
+                'class': 'form-control'
+            })
