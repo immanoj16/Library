@@ -1,5 +1,6 @@
 from __future__ import unicode_literals
 
+import datetime
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
@@ -34,6 +35,16 @@ def update_user_profile(sender, instance, created, **kwargs):
     if created:
         Profile.objects.create(user=instance)
     instance.profile.save()
+
+
+class Issue(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    issue_isbn_no = models.CharField(max_length=100)
+    issue_book_name = models.CharField(max_length=100)
+    issue_date = models.DateTimeField(default=datetime.datetime.now())
+
+    def __unicode__(self):
+        return self.issue_book_name
 
 
 BOOK_CHOICES = (
