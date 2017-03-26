@@ -56,6 +56,13 @@
                                 <h2> {{ book.book_name }} </h2>
                                 <h3> {{ book.author_name }} </h3>
                                 <h3> {{ book.no_of_books }} </h3>
+                                {% if user.username != 'admin' %}
+                                    <form action="#">
+                                        <label for="yes">Do you want to issue this book: </label>
+                                        &nbsp;<input type="checkbox" name="issue" value="yes"> yes &nbsp;&nbsp;
+                                        <button type="submit" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-ok"></span> Issue</button>
+                                    </form>
+                                {% endif %}
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

@@ -10,7 +10,9 @@
 }
 
 .navbar-brand {
-    font-family: 'Satisfy', cursive;
+    font-size: 1.4em;
+    font-weight: 200;
+    font-family: "Audiowide", cursive;
 }
 
 .profile {
