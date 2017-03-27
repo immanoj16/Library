@@ -27,7 +27,22 @@
                 <!-- Items -->
             <div class="collapse navbar-collapse" id="topNavBar">
                 <ul class="nav navbar-nav">
-                    <li class="{% block books_active %}{% endblock %}"><a href="{% url 'home' %}"><span class="glyphicon glyphicon-book"></span> Books</a></li>
+
+                    <!--Book Home Page-->
+                    <li class="{% block books_active %}{% endblock %}">
+                        <a href="{% url 'home' %}">
+                            <span class="glyphicon glyphicon-home"></span> Books
+                        </a>
+                    </li>
+
+                    <!--Issued Book-->
+                    {% if username != 'admin' %}
+                        <li class="{% block issued_book_active %}{% endblock %}">
+                            <a href="/issue_list/">
+                                <span class="glyphicon glyphicon-book"></span> Issued Books
+                            </a>
+                        </li>
+                    {% endif %}
 
                     {% if username == 'admin' %}
                         <li class="dropdown">

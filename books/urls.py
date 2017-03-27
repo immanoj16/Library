@@ -18,4 +18,5 @@ urlpatterns = [
         auth_views.password_reset_confirm, name='password_reset_confirm'),
     url(r'^reset/done/$', auth_views.password_reset_complete, name='password_reset_complete'),
     url(r'^(?P<book_id>[0-9]+)/', core_views.issue, name='issue'),
+    url(r'^issue_list', core_views.issue_list, name='issue_list'),
 ]

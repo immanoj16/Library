@@ -19,3 +19,13 @@
     cursor: pointer;
     text-decoration: underline;
 }
+
+.table th, td{
+    text-align: center;
+}
+
+.table {
+    border-radius: 5px;
+    margin: 0px auto;
+    float: none;
+}

@@ -100,18 +100,31 @@ def issue(request, book_id):
     if choice == 'yes':
         book = get_object_or_404(Book, pk=book_id)
 
-        book.no_of_books -= 1
-        book.save()
+        issued_book = user.issue_set.filter(issue_isbn_no__iexact=book.isbn_no)
 
-        issue_book = Issue(issue_isbn_no=book.isbn_no, issue_book_name=book.book_name, user_id=user.id)
-        issue_book.save()
+        if not issued_book:
 
-        book_list = Book.objects.order_by('book_name')[:50]
-        context = {
-            'success_message': "The book has been issued...",
-            'book_list': book_list,
-        }
-        return render(request, 'books/home.html', context)
+            book.no_of_books -= 1
+            book.save()
+
+            issue_book = user.issue_set.create(issue_isbn_no=book.isbn_no, issue_book_name=book.book_name)
+            print issue_book
+            print issue_book.user.id
+
+            book_list = Book.objects.order_by('book_name')[:50]
+            context = {
+                'success_message': "The book has been issued...",
+                'book_list': book_list,
+            }
+            return render(request, 'books/home.html', context)
+        else:
+            book_list = Book.objects.order_by('book_name')[:50]
+            context = {
+                'error_message': "You have already issued this book...",
+                'book_list': book_list,
+            }
+            return render(request, 'books/home.html', context)
+
     else:
         book_list = Book.objects.order_by('book_name')[:50]
         context = {
@@ -119,3 +132,11 @@ def issue(request, book_id):
             'book_list': book_list,
         }
         return render(request, 'books/home.html', context)
+
+
+@login_required
+def issue_list(request):
+    user = request.user
+    # user = User.objects.get(username=request.user.username)
+    list = user.issue_set.order_by('issue_book_name')
+    return render(request, 'books/issue_list.html', {'list': list,})

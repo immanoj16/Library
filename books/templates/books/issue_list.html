@@ -1,0 +1,27 @@
+{% extends 'books/base.html' %}
+{% block title %}Issue Details{% endblock %}
+{% block issued_book_active %}active{% endblock %}
+
+{% block content %}
+
+    <h3 class="text-center text-capitalize">Issued Book List</h3>
+
+        {% if list %}
+            <table class="table table-hover text-centered" style="width: 70%;">
+                <tr>
+                    <th>ISBN No</th>
+                    <th>Book Name</th>
+                    <th>Date</th>
+                </tr>
+                {% for l in list %}
+                    <tr>
+                        <td>{{ l.issue_isbn_no }}</td>
+                        <td>{{ l.issue_book_name }}</td>
+                        <td>{{ l.issue_date }}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        {% else %}
+            <h3 class="text-info">No issued books are available...</h3>
+        {% endif %}
+{% endblock %}
