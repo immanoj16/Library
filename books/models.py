@@ -40,7 +40,7 @@ def update_user_profile(sender, instance, created, **kwargs):
 class Issue(models.Model):
     issue_isbn_no = models.CharField(max_length=100)
     issue_book_name = models.CharField(max_length=100)
-    issue_date = models.DateTimeField(default=datetime.datetime.now())
+    issue_date = models.DateField(auto_now_add=True)  # or default = datetime.date.today()
     due_fine = models.IntegerField(default=0)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
