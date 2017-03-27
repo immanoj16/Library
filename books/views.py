@@ -1,11 +1,11 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, authenticate
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
 from django.db.models import Q
 
 from .forms import SignUpForm, ProfileForm, BookForm
-from .models import Book
+from .models import Book, Issue
 
 
 @login_required
@@ -91,3 +91,31 @@ def profile(request):
     username = request.user.username
     user = User.objects.get(username=username)
     return render(request, 'books/profile.html', )
+
+
+@login_required
+def issue(request, book_id):
+    user = request.user
+    choice = request.GET['choice']
+    if choice == 'yes':
+        book = get_object_or_404(Book, pk=book_id)
+
+        book.no_of_books -= 1
+        book.save()
+
+        issue_book = Issue(issue_isbn_no=book.isbn_no, issue_book_name=book.book_name, user_id=user.id)
+        issue_book.save()
+
+        book_list = Book.objects.order_by('book_name')[:50]
+        context = {
+            'success_message': "The book has been issued...",
+            'book_list': book_list,
+        }
+        return render(request, 'books/home.html', context)
+    else:
+        book_list = Book.objects.order_by('book_name')[:50]
+        context = {
+            'error_message': "Error occured!!!!",
+            'book_list': book_list,
+        }
+        return render(request, 'books/home.html', context)
