@@ -36,7 +36,7 @@
                     </li>
 
                     <!--Issued Book-->
-                    {% if username != 'admin' %}
+                    {% if not user.username == 'admin' %}
                         <li class="{% block issued_book_active %}{% endblock %}">
                             <a href="/issue_list/">
                                 <span class="glyphicon glyphicon-book"></span> Issued Books
@@ -44,17 +44,17 @@
                         </li>
                     {% endif %}
 
-                    {% if username == 'admin' %}
-                        <li class="dropdown">
+                    {% if user.username == 'admin' %}
+                        <li class="dropdown {% block add_active %}{% endblock %}">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add <span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li>
+                                <li class="{% block add_book_active %}{% endblock %}">
                                     <a href="{% url 'addbook' %}">
                                         <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp; Add Books
                                     </a>
                                 </li>
                                 <li class="divider"></li>
-                                <li>
+                                <li class="{% block add_user_active %}{% endblock %}">
                                     <a href="#">
                                         <span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp; Add Users
                                     </a>
@@ -62,16 +62,16 @@
 
                             </ul>
                         </li>
-                        <li class="dropdown">
+                        <li class="dropdown {% block remove_active %}{% endblock %}">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span> Remove <span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li>
-                                    <a href="#">
+                                <li class="{% block remove_book_active %}{% endblock %}">
+                                    <a href="/remove_book/">
                                         <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>&nbsp; Remove Books
                                     </a>
                                 </li>
                                 <li class="divider"></li>
-                                <li>
+                                <li class="{% block remove_user_active %}{% endblock %}">
                                     <a href="#">
                                         <span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp; Remove Users
                                     </a>

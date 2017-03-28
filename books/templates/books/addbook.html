@@ -1,6 +1,8 @@
 {% extends 'books/base.html' %}
 
 {% block title %}Add book to the library{% endblock %}
+{% block add_active %}active{% endblock %}
+{% block add_book_active %}active{% endblock %}
 
 {% if error_message %}
     <div class="alert alert-danger">

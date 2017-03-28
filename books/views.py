@@ -65,6 +65,26 @@ def addbook(request):
 
 
 @login_required
+def remove_book(request):
+    username = request.user.username
+    if username == 'admin':
+        isbn_no = request.GET.get('isbn_no','')
+        try:
+            book = Book.objects.get(isbn_no=isbn_no)
+            book.delete()
+            book_list = Book.objects.order_by('book_name')[:50]
+            context = {
+                'success_message': "The book is removed",
+                'book_list': book_list,
+            }
+            return render(request, 'books/home.html', context)
+        except:
+            return render(request, 'books/remove_book.html', {'error_message': "Give correct Id or Name"})
+    else:
+        return render(request, 'books/remove_book.html', {'error_message': "Give correct Id or Name"})
+
+
+@login_required
 def search(request):
     username = request.user.username
     query = request.GET['q']
