@@ -6,8 +6,6 @@
     {% load staticfiles %}
     <link rel="shortcut icon" type="image/png" href="{%  static 'books/img/title.png' %}">
     <link rel="stylesheet" href="{% static 'books/css/bootstrap.min.css' %}">
-    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
-    <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'books/css/style.css' %}">
     <link href="https://fonts.googleapis.com/css?family=Audiowide" rel="stylesheet">
     <script type="text/javascript" src="{% static 'books/js/jquery-3.1.1.min.js' %}"></script>
@@ -118,42 +116,6 @@
     <div class="container">
         {% block content %}
         {% endblock %}
-
-
-        <footer id="footer" class="main-footer row">
-          <div class="col-8 row">
-            <div class="col-3">
-              <h4>About</h4>
-            </div>
-            <div class="col-3">
-              <h4>Support</h4>
-            </div>
-            <div class="col-3">
-              <h4>Contact</h4>
-            </div>
-            <div class="col-3">
-              <h4>Legal</h4>
-            </div>
-          </div>
-          <div class="col-4">
-            <hr class="small-only">
-            <h4 class="is-centered">We're On it.
-              <ul class="social-nav horizontal-list">
-                <li><a href="https://twitter.com/immanoj16" title="Manoj on Twitter" target="_blank"><i class="icon-twitter"></i></a></li>
-                <li><a href="https://www.facebook.com/immanoj16" title="Manoj on Facebook" target="_blank"><i class="icon-facebook"></i></a></li>
-                <li><a href="#" title="Manoj on YouTube" target="_blank"><i class="icon-youtube"></i></a></li>
-                <li><a href="#" title="Manoj on LinkedIn" target="_blank"><i class="icon-linkedin"></i></a></li>
-                <li><a href="#" title="Manoj on Google Plus" target="_blank"><i class="icon-google"></i></a></li>
-              </ul>
-            </h4>
-          </div>
-            <div style="margin-top:10px;" class="col-8">
-              Copyright © 2017 &nbsp;| &nbsp;<a href="https://www.surveymonkey.com/" class="monkey-link">Manoj Inc.</a>
-            </div>
-
-          </div>
-        </footer>
-
     </div>
 
     <script src="{% static 'books/js/main.js' %}"></script>
