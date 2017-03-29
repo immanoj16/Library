@@ -1,0 +1,60 @@
+{% extends 'books/base.html' %}
+{% block title %}Add User{% endblock %}
+{% block add_user_active %}active{% endblock %}
+
+{% block content %}
+    <h2 class="text-capitalize text-center">Add New User</h2>
+
+    <div class="container">
+        <div id="signupbox" style="margin-top:50px" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <div class="panel-title">Add new User</div>
+                </div>
+                <div class="panel-body" >
+                    <form id="signupform" class="form-horizontal" role="form" method="post">
+                        {% csrf_token %}
+                        {% for field in user_form %}
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">{{ field.label_tag }}</label>
+                                <div class="col-md-9">
+                                    {{ field }}
+                                    {% if field.help_text %}
+                                        <small style="color: grey">{{ field.help_text }}</small>
+                                    {% endif %}
+                                </div>
+                                {% for error in field.errors %}
+                                    <p style="color: red">{{ error }}</p>
+                                {% endfor %}
+                            </div>
+                        {% endfor %}
+
+                        {% for field in profile_form %}
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">{{ field.label_tag }}</label>
+                                <div class="col-md-9">
+                                    {{ field }}
+                                    {% if field.help_text %}
+                                        <small style="color: grey">{{ field.help_text }}</small>
+                                    {% endif %}
+                                </div>
+                                {% for error in field.errors %}
+                                    <p style="color: red">{{ error }}</p>
+                                {% endfor %}
+                            </div>
+                        {% endfor %}
+
+                        <div class="form-group">
+                            <!-- Button -->
+                            <div class="col-md-offset-3 col-md-9">
+                                <button id="btn-signup" type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-hand-right"></span> &nbsp Add User</button>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

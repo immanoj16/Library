@@ -20,4 +20,5 @@ urlpatterns = [
     url(r'^(?P<book_id>[0-9]+)/', core_views.issue, name='issue'),
     url(r'^issue_list', core_views.issue_list, name='issue_list'),
     url(r'^remove_book', core_views.remove_book, name='remove_book'),
+    url(r'^add_user', core_views.add_user, name='add_user'),
 ]
