@@ -160,3 +160,33 @@ def issue_list(request):
     # user = User.objects.get(username=request.user.username)
     list = user.issue_set.order_by('issue_book_name')
     return render(request, 'books/issue_list.html', {'list': list,})
+
+
+@login_required
+def add_user(request):
+    if request.user.username == 'admin':
+        if request.method == 'POST':
+            user_form = SignUpForm(request.POST)
+            profile_form = ProfileForm(request.POST)
+            if user_form.is_valid() and profile_form.is_valid():
+                user = user_form.save()
+                user.profile.regd_no = profile_form.cleaned_data.get('regd_no')
+                user.profile.birth_date = profile_form.cleaned_data.get('birth_date')
+                user.profile.branch = profile_form.cleaned_data.get('branch')
+                user.profile.year = profile_form.cleaned_data.get('year')
+                user.profile.phone = profile_form.cleaned_data.get('phone')
+                user.profile.save()
+                user.refresh_from_db()  # load the profile instance created by the signal
+                user.save()
+                book_list = Book.objects.order_by('book_name')[:50]
+                context = {
+                    'success_message': "new user is added named" + user.username,
+                    'book_list': book_list,
+                }
+                return render(request, 'books/home.html', context)
+        else:
+            user_form = SignUpForm()
+            profile_form = ProfileForm()
+        return render(request, 'books/add_user.html', {'user_form': user_form, 'profile_form': profile_form})
+
+
