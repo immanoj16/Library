@@ -190,3 +190,13 @@ def add_user(request):
         return render(request, 'books/add_user.html', {'user_form': user_form, 'profile_form': profile_form})
 
 
+@login_required
+def remove_user(request):
+    username = request.user.username
+    book_list = Book.objects.order_by('book_name')[:50]
+    context = {
+        'book_list': book_list,
+        'username': username,
+    }
+    return render(request, 'books/home.html', context)
+
