@@ -180,7 +180,7 @@ def add_user(request):
                 user.save()
                 book_list = Book.objects.order_by('book_name')[:50]
                 context = {
-                    'success_message': "new user is added named" + user.username,
+                    'success_message': "new user is added named " + user.username,
                     'book_list': book_list,
                 }
                 return render(request, 'books/home.html', context)
@@ -193,10 +193,18 @@ def add_user(request):
 @login_required
 def remove_user(request):
     username = request.user.username
-    book_list = Book.objects.order_by('book_name')[:50]
-    context = {
-        'book_list': book_list,
-        'username': username,
-    }
-    return render(request, 'books/home.html', context)
-
+    if username == 'admin':
+        user_name = request.GET.get('user_name', '')
+        try:
+            user = User.objects.get(username=user_name)
+            user.delete()
+            book_list = Book.objects.order_by('book_name')[:50]
+            context = {
+                'success_message': "The user is removed",
+                'book_list': book_list,
+            }
+            return render(request, 'books/home.html', context)
+        except:
+            return render(request, 'books/remove_user.html', {'error_message': "Give correct Id or Name"})
+    else:
+        return render(request, 'books/remove_user.html', {'error_message': "Give correct Id or Name"})
