@@ -22,4 +22,5 @@ urlpatterns = [
     url(r'^remove_book', core_views.remove_book, name='remove_book'),
     url(r'^add_user', core_views.add_user, name='add_user'),
     url(r'^remove_user', core_views.remove_user, name='remove_user'),
+    url(r'^users', core_views.users, name='users'),
 ]
