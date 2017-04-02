@@ -208,3 +208,20 @@ def remove_user(request):
             return render(request, 'books/remove_user.html', {'error_message': "Give correct Id or Name"})
     else:
         return render(request, 'books/remove_user.html', {'error_message': "Give correct Id or Name"})
+
+
+@login_required
+def users(request):
+    username = request.user.username
+    if username == 'admin':
+        user_list = User.objects.order_by('username')[:50]
+        return render(request, 'books/users.html', {'user_list': user_list, 'username': username})
+    else:
+        book_list = Book.objects.order_by('book_name')[:50]
+        context = {
+            'book_list': book_list,
+            'username': username,
+            'error_message': "It shows only to admin..."
+        }
+        return render(request, 'books/home.html', context)
+
