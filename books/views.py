@@ -50,7 +50,7 @@ def addbook(request):
 
             book_list = Book.objects.order_by('book_name')[:50]
             context = {
-                'success_message': "New book is added",
+                'message': "New book is added",
                 'book_list': book_list,
                 'username': username,
             }
@@ -74,7 +74,7 @@ def remove_book(request):
             book.delete()
             book_list = Book.objects.order_by('book_name')[:50]
             context = {
-                'success_message': "The book is removed",
+                'message': "The book is removed",
                 'book_list': book_list,
             }
             return render(request, 'books/home.html', context)
@@ -100,7 +100,7 @@ def search(request):
     else:
         book_list = Book.objects.order_by('book_name')[:50]
         context = {
-            'error_message': "Please Give the book name or username",
+            'message': "Please Give the book name or username",
             'book_list': book_list,
         }
         return render(request, 'books/home.html', context)
@@ -133,14 +133,14 @@ def issue(request, book_id):
 
             book_list = Book.objects.order_by('book_name')[:50]
             context = {
-                'success_message': "The book has been issued...",
+                'message': "The book has been issued...",
                 'book_list': book_list,
             }
             return render(request, 'books/home.html', context)
         else:
             book_list = Book.objects.order_by('book_name')[:50]
             context = {
-                'error_message': "You have already issued this book...",
+                'message': "You have already issued this book...",
                 'book_list': book_list,
             }
             return render(request, 'books/home.html', context)
@@ -221,7 +221,7 @@ def users(request):
         context = {
             'book_list': book_list,
             'username': username,
-            'error_message': "It shows only to admin..."
+            'message': "It shows only to admin..."
         }
         return render(request, 'books/home.html', context)
 

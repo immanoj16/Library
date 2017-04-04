@@ -11,14 +11,9 @@
     <p>You are in {{ user.profile.year }} of {{ user.profile.branch }}</p>-->
     <h3 class="text-center text-capitalize">Book List</h3>
 
-    {% if success_message %}
+    {% if message %}
         <div class="alert alert-success">
-            {{ success_message }}
-        </div>
-    {% endif %}
-    {% if error_message %}
-        <div class="alert alert-danger">
-            {{ error_message }}
+            {{ message }}
         </div>
     {% endif %}
 
