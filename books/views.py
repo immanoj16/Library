@@ -59,7 +59,7 @@ def addbook(request):
     else:
         context = {
             'book_form': BookForm(),
-            'error_message': "Data is invalid",
+            'message': "Data is invalid",
         }
         return render(request, 'books/addbook.html', context)
 
@@ -79,9 +79,9 @@ def remove_book(request):
             }
             return render(request, 'books/home.html', context)
         except:
-            return render(request, 'books/remove_book.html', {'error_message': "Give correct Id or Name"})
+            return render(request, 'books/remove_book.html', {'message': "Give correct Id or Name"})
     else:
-        return render(request, 'books/remove_book.html', {'error_message': "Give correct Id or Name"})
+        return render(request, 'books/remove_book.html', {'message': "Give correct Id or Name"})
 
 
 @login_required
@@ -148,7 +148,7 @@ def issue(request, book_id):
     else:
         book_list = Book.objects.order_by('book_name')[:50]
         context = {
-            'error_message': "Error occured!!!!",
+            'message': "Error occured!!!!",
             'book_list': book_list,
         }
         return render(request, 'books/home.html', context)
@@ -180,7 +180,7 @@ def add_user(request):
                 user.save()
                 book_list = Book.objects.order_by('book_name')[:50]
                 context = {
-                    'success_message': "new user is added named " + user.username,
+                    'message': "new user is added named " + user.username,
                     'book_list': book_list,
                 }
                 return render(request, 'books/home.html', context)
@@ -200,14 +200,14 @@ def remove_user(request):
             user.delete()
             book_list = Book.objects.order_by('book_name')[:50]
             context = {
-                'success_message': "The user is removed",
+                'message': "The user is removed",
                 'book_list': book_list,
             }
             return render(request, 'books/home.html', context)
         except:
-            return render(request, 'books/remove_user.html', {'error_message': "Give correct Id or Name"})
+            return render(request, 'books/remove_user.html', {'message': "Give correct Id or Name"})
     else:
-        return render(request, 'books/remove_user.html', {'error_message': "Give correct Id or Name"})
+        return render(request, 'books/remove_user.html', {'message': "Give correct Id or Name"})
 
 
 @login_required
