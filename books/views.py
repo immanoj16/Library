@@ -50,7 +50,7 @@ def addbook(request):
 
             book_list = Book.objects.order_by('book_name')[:50]
             context = {
-                'message': "New book is added",
+                'success_message': "New book is added",
                 'book_list': book_list,
                 'username': username,
             }
@@ -59,7 +59,7 @@ def addbook(request):
     else:
         context = {
             'book_form': BookForm(),
-            'message': "Data is invalid",
+            'error_message': "Data is invalid",
         }
         return render(request, 'books/addbook.html', context)
 
@@ -74,14 +74,14 @@ def remove_book(request):
             book.delete()
             book_list = Book.objects.order_by('book_name')[:50]
             context = {
-                'message': "The book is removed",
+                'success_message': "The book is removed",
                 'book_list': book_list,
             }
             return render(request, 'books/home.html', context)
         except:
-            return render(request, 'books/remove_book.html', {'message': "Give correct Id or Name"})
+            return render(request, 'books/remove_book.html', {'error_message': "Give correct Id or Name"})
     else:
-        return render(request, 'books/remove_book.html', {'message': "Give correct Id or Name"})
+        return render(request, 'books/remove_book.html', {'error_message': "Give correct Id or Name"})
 
 
 @login_required
@@ -100,7 +100,7 @@ def search(request):
     else:
         book_list = Book.objects.order_by('book_name')[:50]
         context = {
-            'message': "Please Give the book name or username",
+            'error_message': "Please Give the book name or username",
             'book_list': book_list,
         }
         return render(request, 'books/home.html', context)
@@ -133,14 +133,14 @@ def issue(request, book_id):
 
             book_list = Book.objects.order_by('book_name')[:50]
             context = {
-                'message': "The book has been issued...",
+                'success_message': "The book has been issued...",
                 'book_list': book_list,
             }
             return render(request, 'books/home.html', context)
         else:
             book_list = Book.objects.order_by('book_name')[:50]
             context = {
-                'message': "You have already issued this book...",
+                'error_message': "You have already issued this book...",
                 'book_list': book_list,
             }
             return render(request, 'books/home.html', context)
@@ -148,7 +148,7 @@ def issue(request, book_id):
     else:
         book_list = Book.objects.order_by('book_name')[:50]
         context = {
-            'message': "Error occured!!!!",
+            'error_message': "Error occured!!!!",
             'book_list': book_list,
         }
         return render(request, 'books/home.html', context)
@@ -180,7 +180,7 @@ def add_user(request):
                 user.save()
                 book_list = Book.objects.order_by('book_name')[:50]
                 context = {
-                    'message': "new user is added named " + user.username,
+                    'success_message': "new user is added named " + user.username,
                     'book_list': book_list,
                 }
                 return render(request, 'books/home.html', context)
@@ -200,14 +200,14 @@ def remove_user(request):
             user.delete()
             book_list = Book.objects.order_by('book_name')[:50]
             context = {
-                'message': "The user is removed",
+                'success_message': "The user is removed",
                 'book_list': book_list,
             }
             return render(request, 'books/home.html', context)
         except:
-            return render(request, 'books/remove_user.html', {'message': "Give correct Id or Name"})
+            return render(request, 'books/remove_user.html', {'error_message': "Give correct Id or Name"})
     else:
-        return render(request, 'books/remove_user.html', {'message': "Give correct Id or Name"})
+        return render(request, 'books/remove_user.html', {'error_message': "Give correct Id or Name"})
 
 
 @login_required
@@ -221,7 +221,7 @@ def users(request):
         context = {
             'book_list': book_list,
             'username': username,
-            'message': "It shows only to admin..."
+            'error_message': "It shows only to admin..."
         }
         return render(request, 'books/home.html', context)
 
