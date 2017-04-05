@@ -215,7 +215,7 @@ def users(request):
     username = request.user.username
     if username == 'admin':
         user_list = User.objects.order_by('username')[:50]
-        return render(request, 'books/users.html', {'user_list': user_list, })
+        return render(request, 'books/users.html', {'user_list': user_list, 'username': username})
     else:
         book_list = Book.objects.order_by('book_name')[:50]
         context = {
