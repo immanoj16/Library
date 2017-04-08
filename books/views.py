@@ -41,7 +41,6 @@ def signup(request):
 
 @login_required
 def addbook(request):
-    username = request.user.username
     if request.method == 'POST':
         book_form = BookForm(request.POST)
 
