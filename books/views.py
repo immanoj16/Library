@@ -12,7 +12,11 @@ from .models import Book, Issue
 def home(request):
     username = request.user.username
     book_list = Book.objects.order_by('book_name')[:50]
-    return render(request, 'books/home.html', {'book_list': book_list, 'username': username})
+    context = {
+        'book_list': book_list,
+        'username': username,
+    }
+    return render(request, 'books/home.html', context)
 
 
 def signup(request):
