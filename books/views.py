@@ -132,8 +132,6 @@ def issue(request, book_id):
             book.save()
 
             issue_book = user.issue_set.create(issue_isbn_no=book.isbn_no, issue_book_name=book.book_name)
-            print issue_book
-            print issue_book.user.id
 
             book_list = Book.objects.order_by('book_name')[:50]
             context = {
