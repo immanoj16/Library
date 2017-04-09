@@ -30,7 +30,7 @@
             </tr>
             {% for user in user_list %}
                 {% if user.username != 'admin' %}
-                    <tr data-toggle="modal" data-target="#">
+                    <tr data-toggle="modal" data-target="#{{ user.id }}">
                         <td>{{ user.username }}</td>
                         <td>{{ user.get_full_name }}</td>
                     </tr>
@@ -39,28 +39,17 @@
         </table>
 
         <!-- Modal -->
-        <!--{% for book in book_list %}
-            <div class="modal fade" id="{{ book.isbn_no }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabelName" aria-hidden="true">
+        {% for user in user_list %}
+            <div class="modal fade" id="{{ user.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabelName" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h4 class="modal-title" id="myModalLabelName"> Book Details </h4>
+                                <h4 class="modal-title" id="myModalLabelName"> User Details </h4>
                             </div>
                             <div class="modal-body">
-                                <h2> {{ book.book_name }} </h2>
-                                <h3> {{ book.author_name }} </h3>
-                                <h3> {{ book.no_of_books }} </h3>
-                                {% if username != 'admin'%}
-                                    {% if book.no_of_books > 0 %}
-                                        <form action="{% url 'issue' book.id %}" method="get">
-                                            <label for="yes">Do you want to issue this book: </label>
-                                            &nbsp<input type="checkbox" name="choice" value="yes"> yes &nbsp;&nbsp;
-                                            <button type="submit" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-ok"></span> Issue</button>
-                                        </form>
-                                    {% else %}
-                                        <span style="color: red;">Book is not available</span>
-                                    {% endif %}
-                                {% endif %}
+                                <h2> {{ user.username }} </h2>
+                                <h3> {{ user.get_full_name }} </h3>
+                                <h3> {{ user.email }} </h3>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -68,7 +57,7 @@
                         </div>
                     </div>
                 </div>
-        {% endfor %}-->
+        {% endfor %}
     {% else %}
         <h3 style="color: red;">No user is available</h3>
     {% endif %}
