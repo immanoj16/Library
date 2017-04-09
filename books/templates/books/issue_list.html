@@ -15,7 +15,7 @@
                     <th>Due/Fine</th>
                 </tr>
                 {% for l in list %}
-                    <tr>
+                    <tr data-toggle="modal" data-target="#{{ l.id }}">
                         <td>{{ l.issue_isbn_no }}</td>
                         <td>{{ l.issue_book_name }}</td>
                         <td>{{ l.issue_date }}</td>
@@ -23,6 +23,29 @@
                     </tr>
                 {% endfor %}
             </table>
+
+            <!-- Modal -->
+            {% for l in list %}
+                <div class="modal fade" id="{{ l.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabelName" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title" id="myModalLabelName"> Issue Book Details </h4>
+                                </div>
+                                <div class="modal-body">
+                                    <h2> {{ l.issue_isbn_no }} </h2>
+                                    <h3> {{ l.issue_book_name }} </h3>
+                                    <h3> {{ l.issue_date }} </h3>
+                                    <h3> {{ l.due_fine }} </h3>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            {% endfor %}
+
         {% else %}
             <h3 class="text-info">No issued books are available...</h3>
         {% endif %}
