@@ -46,26 +46,35 @@ def signup(request):
 @login_required
 def addbook(request):
     username = request.user.username
-    if request.method == 'POST':
-        book_form = BookForm(request.POST)
+    if username == 'admin':
+        if request.method == 'POST':
+            book_form = BookForm(request.POST)
 
-        if book_form.is_valid():
-            book_form.save()
+            if book_form.is_valid():
+                book_form.save()
 
-            book_list = Book.objects.order_by('book_name')[:50]
+                book_list = Book.objects.order_by('book_name')[:50]
+                context = {
+                    'success_message': "New book is added",
+                    'book_list': book_list,
+                    'username': username,
+                }
+                return render(request, 'books/home.html', context)
+
+        else:
             context = {
-                'success_message': "New book is added",
-                'book_list': book_list,
-                'username': username,
+                'book_form': BookForm(),
+                'error_message': "Data is invalid",
             }
-            return render(request, 'books/home.html', context)
-
+            return render(request, 'books/addbook.html', context)
     else:
+        book_list = Book.objects.order_by('book_name')[:50]
         context = {
-            'book_form': BookForm(),
-            'error_message': "Data is invalid",
+            'book_list': book_list,
+            'username': username,
+            'error_message': "It shows only to admin..."
         }
-        return render(request, 'books/addbook.html', context)
+        return render(request, 'books/home.html', context)
 
 
 @login_required
