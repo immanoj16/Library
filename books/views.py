@@ -94,7 +94,13 @@ def remove_book(request):
         except:
             return render(request, 'books/remove_book.html', {'error_message': "Give correct Id or Name"})
     else:
-        return render(request, 'books/remove_book.html', {'error_message': "Give correct Id or Name"})
+        book_list = Book.objects.order_by('book_name')[:50]
+        context = {
+            'book_list': book_list,
+            'username': username,
+            'error_message': "It shows only to admin..."
+        }
+        return render(request, 'books/home.html', context)
 
 
 @login_required
