@@ -1,3 +1,5 @@
+import datetime
+
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, authenticate
 from django.shortcuts import render, redirect, get_object_or_404
@@ -176,6 +178,12 @@ def issue_list(request):
     user = request.user
     # user = User.objects.get(username=request.user.username)
     list = user.issue_set.order_by('issue_book_name')
+    date_list = []
+    for l in list:
+        fine = datetime.date.today() - l.issue_date - 15
+        print fine
+        # l.due_fine = fine
+    print datetime.date.today()
     return render(request, 'books/issue_list.html', {'list': list,})
 
 
