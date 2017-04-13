@@ -41,6 +41,7 @@ class Issue(models.Model):
     issue_isbn_no = models.CharField(max_length=100)
     issue_book_name = models.CharField(max_length=100)
     issue_date = models.DateField(default = datetime.date.today())  # or default = datetime.date.today()
+    return_date = models.DateField(default= datetime.date.today() + datetime.timedelta(days=15))
     due_fine = models.IntegerField(default=0)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 

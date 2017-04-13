@@ -12,6 +12,7 @@
                     <th>ISBN No</th>
                     <th>Book Name</th>
                     <th>Issue Date</th>
+                    <th>Return Date</th>
                     <th>Due/Fine</th>
                 </tr>
                 {% for l in list %}
@@ -19,6 +20,7 @@
                         <td>{{ l.issue_isbn_no }}</td>
                         <td>{{ l.issue_book_name }}</td>
                         <td>{{ l.issue_date }}</td>
+                        <td>{{ l.return_date }}</td>
                         <td>{{ l.due_fine }}</td>
                     </tr>
                 {% endfor %}
