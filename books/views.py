@@ -181,9 +181,10 @@ def issue_list(request):
 
     for l in list:
         day = (datetime.date.today() - l.issue_date).days
-        if day > 1:
-            day -= 1
-            l.due_fine = day
+        print day
+        print l.due_fine
+        if day > 15:
+            l.due_fine = day - 15
 
     print datetime.date.today()
     return render(request, 'books/issue_list.html', {'list': list,})
