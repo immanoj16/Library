@@ -177,16 +177,15 @@ def issue(request, book_id):
 def issue_list(request):
     user = request.user
     # user = User.objects.get(username=request.user.username)
-    list = user.issue_set.order_by('issue_book_name')
+    list = user.issue_set.all()
 
     for l in list:
-        day = (datetime.date.today() - l.issue_date).days
-        print day
-        print l.due_fine
-        if day > 15:
-            l.due_fine = day - 15
+        day = (datetime.date.today() - l.return_date).days
+        if day > 0:
+            l.due_fine = day
+            l.save()
 
-    print datetime.date.today()
+    list = user.issue_set.order_by("issue_book_name")
     return render(request, 'books/issue_list.html', {'list': list,})
 
 
