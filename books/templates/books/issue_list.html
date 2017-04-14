@@ -29,30 +29,30 @@
             <!-- Modal -->
             {% for l in list %}
                 <div class="modal fade" id="{{ l.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabelName" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h4 class="modal-title" id="myModalLabelName"> Issue Book Details </h4>
-                                </div>
-                                <div class="modal-body">
-                                    <h2> {{ l.issue_book_name }} </h2>
-                                    <h3> {{ l.issue_isbn_no }} </h3>
-                                    <h3> {{ l.issue_date }} </h3>
-                                    <h3> {{ l.due_fine }} </h3>
-                                    {% if username != 'admin'%}
-                                        <form action="#" method="get">
-                                            <label for="yes">Do you want to Return this book: </label>
-                                            &nbsp<input type="checkbox" name="choice" value="yes"> yes &nbsp;&nbsp;
-                                            <button type="submit" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-ok"></span> Return</button>
-                                        </form>
-                                    {% endif %}
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                </div>
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title" id="myModalLabelName"> Issue Book Details </h4>
+                            </div>
+                            <div class="modal-body">
+                                <h2> {{ l.issue_book_name }} </h2>
+                                <h3> {{ l.issue_isbn_no }} </h3>
+                                <h3> {{ l.issue_date }} </h3>
+                                <h3> {{ l.due_fine }} </h3>
+                                {% if username != 'admin'%}
+                                    <form action="#" method="get">
+                                        <label for="yes">Do you want to Return this book: </label>
+                                        &nbsp<input type="checkbox" name="choice" value="yes"> yes &nbsp;&nbsp;
+                                        <button type="submit" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-ok"></span> Return</button>
+                                    </form>
+                                {% endif %}
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                             </div>
                         </div>
                     </div>
+                </div>
             {% endfor %}
 
         {% else %}
