@@ -23,4 +23,5 @@ urlpatterns = [
     url(r'^add_user', core_views.add_user, name='add_user'),
     url(r'^remove_user', core_views.remove_user, name='remove_user'),
     url(r'^users', core_views.users, name='users'),
+    url(r'(?P<issue_isbn_no>[0-9]+)/',core_views.return_book, name='return_book'),
 ]

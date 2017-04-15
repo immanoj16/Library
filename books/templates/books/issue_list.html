@@ -40,9 +40,9 @@
                                 <h3> {{ l.issue_date }} </h3>
                                 <h3> {{ l.due_fine }} </h3>
                                 {% if username != 'admin'%}
-                                    <form action="#" method="get">
-                                        <label for="yes">Do you want to Return this book: </label>
-                                        &nbsp<input type="checkbox" name="choice" value="yes"> yes &nbsp;&nbsp;
+                                    <form action="{% url 'return_book' l.issue_isbn_no %}" method="get">
+                                        <label for="choice">Do you want to Return this book: </label>
+                                        &nbsp<input id="choice" type="checkbox" name="choice" value="yes"> yes &nbsp;&nbsp;
                                         <button type="submit" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-ok"></span> Return</button>
                                     </form>
                                 {% endif %}

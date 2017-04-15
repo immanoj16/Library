@@ -140,16 +140,12 @@ def issue(request, book_id):
     choice = request.GET['choice']
     if choice == 'yes':
         book = get_object_or_404(Book, pk=book_id)
-
         issued_book = user.issue_set.filter(issue_isbn_no__iexact=book.isbn_no)
-
         if not issued_book:
 
             book.no_of_books -= 1
             book.save()
-
             user.issue_set.create(issue_isbn_no=book.isbn_no, issue_book_name=book.book_name)
-
             book_list = Book.objects.order_by('book_name')[:50]
             context = {
                 'success_message': "The book has been issued...",
@@ -252,3 +248,11 @@ def users(request):
         }
         return render(request, 'books/home.html', context)
 
+
+@login_required
+def return_book(request, issue_isbn_no):
+    print issue_isbn_no
+    user = request.user
+    choice = request.GET['choice']
+    if choice == 'yes':
+        print choice
