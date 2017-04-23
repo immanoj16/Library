@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+    {% load staticfiles %}
+    <link rel="shortcut icon" type="image/png" href="{%  static 'books/img/title.png' %}">
+    <link rel="stylesheet" href="{% static 'books/css/bootstrap.min.css' %}">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'books/css/style.css' %}">
+    <link href="https://fonts.googleapis.com/css?family=Audiowide" rel="stylesheet">
+    <script type="text/javascript" src="{% static 'books/js/jquery-3.1.1.min.js' %}"></script>
+    <script src="{% static 'books/js/bootstrap.min.js' %}"></script>
+</head>
+<body>
+    <nav class="navbar navbar-inverse">
+        <div class="container">
+            <!-- Header -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#topNavBar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="{% url 'home' %}">Library</a>
+            </div>
+
+                <!-- Items -->
+            <div class="collapse navbar-collapse" id="topNavBar">
+                <ul class="nav navbar-nav">
+
+                    <!--Book Home Page-->
+                    <li class="{% block books_active %}{% endblock %}">
+                        <a href="{% url 'home' %}">
+                            <span class="glyphicon glyphicon-home"></span> Books
+                        </a>
+                    </li>
+
+                    <!--Issued Book-->
+                    {% if not user.username == 'admin' %}
+                        <li class="{% block issued_book_active %}{% endblock %}">
+                            <a href="/issue_list/">
+                                <span class="glyphicon glyphicon-book"></span> Issued Books
+                            </a>
+                        </li>
+                    {% endif %}
+
+                    {% if user.username == 'admin' %}
+                        <li class="{% block users_active %}{% endblock %}">
+                            <a href="/users/">
+                                <span class="glyphicon glyphicon-user"></span> Users
+                            </a>
+                        </li>
+                        <li class="dropdown {% block add_active %}{% endblock %}">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li class="{% block add_book_active %}{% endblock %}">
+                                    <a href="{% url 'addbook' %}">
+                                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp; Add Books
+                                    </a>
+                                </li>
+                                <li class="divider"></li>
+                                <li class="{% block add_user_active %}{% endblock %}">
+                                    <a href="/add_user/">
+                                        <span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp; Add Users
+                                    </a>
+                                </li>
+
+                            </ul>
+                        </li>
+                        <li class="dropdown {% block remove_active %}{% endblock %}">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span> Remove <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li class="{% block remove_book_active %}{% endblock %}">
+                                    <a href="/remove_book/">
+                                        <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>&nbsp; Remove Books
+                                    </a>
+                                </li>
+                                <li class="divider"></li>
+                                <li class="{% block remove_user_active %}{% endblock %}">
+                                    <a href="/remove_user/">
+                                        <span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp; Remove Users
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    {% endif %}
+                    <li>
+                        <form class="navbar-form" role="search" action="{% url 'search' %}">
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="q" placeholder="Search">
+                                <div class="input-group-btn">
+                                    <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                                </div>
+                            </div>
+                        </form>
+                    </li>
+                </ul>
+
+
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> <span style="font-size: large;">{{ user.username }}</span> <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li class="{% block profile_active %}{% endblock %}">
+                                <a href="{% url 'profile' %}">
+                                    <span class="glyphicon glyphicon-user"></span> Account Setting
+                                </a>
+                            </li>
+                            <li role="separator" class="divider"></li>
+                            <li>
+                                <a href="{% url 'logout' %}">
+                                    <span class="glyphicon glyphicon-off" aria-hidden="true"></span>&nbsp; Logout
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+    <footer>
+    <div class="footer" id="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <ul class="social">
+                        <li> <a href="#"> <i class=" fa fa-facebook">   </i> </a> </li>
+                        <li> <a href="#"> <i class="fa fa-twitter">   </i> </a> </li>
+                        <li> <a href="#"> <i class="fa fa-google-plus">   </i> </a> </li>
+                        <li> <a href="#"> <i class="fa fa-pinterest">   </i> </a> </li>
+                        <li> <a href="#"> <i class="fa fa-youtube">   </i> </a> </li>
+                    </ul>
+                </div>
+            </div>
+            <!--/.row-->
+        </div>
+        <!--/.container-->
+    </div>
+    <!--/.footer-->
+
+    <div class="footer-bottom">
+        <div class="container">
+            <p class="pull-left"> Copyright © Manoj 2017. All right reserved. </p>
+            <div class="pull-right">
+                <ul class="nav nav-pills payments">
+                    <li><i class="fa fa-cc-visa"></i></li>
+                    <li><i class="fa fa-cc-mastercard"></i></li>
+                    <li><i class="fa fa-cc-amex"></i></li>
+                    <li><i class="fa fa-cc-paypal"></i></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--/.footer-bottom-->
+</footer>
+
+
+    <script src="{% static 'books/js/main.js' %}"></script>
+</body>
+</html>
