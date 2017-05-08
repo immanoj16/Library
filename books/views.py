@@ -256,3 +256,5 @@ def return_book(request, issue_isbn_no):
     choice = request.GET['choice']
     if choice == 'yes':
         print choice
+    else:
+    	pass
